@@ -1,0 +1,49 @@
+{% extends 'TeamPicker/TeamPicker_base.html' %}
+{% block body_block %}
+<style>
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+</style>
+<h1>
+  Detailed View of the Series and Players
+</h1>
+<h2>
+  <p>{{ series.Match }}</p>
+    <h3>
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Role</th>
+        <th>Credit</th>
+        <th>Team</th>
+      </tr>
+    {% for player in series.series.all %}
+      <tr>
+        <td><a href="{% url 'TeamPicker:UpdatePlayer' pk=player.pk %}">{{player.Name}}</a></td>
+        <td>{{player.Role}}</td>
+        <td>{{player.Credit}}</td>
+        <td>{{player.Team}}</td>
+      </tr>
+    {% endfor %}
+    </table>
+    </h3>
+  </h2>
+  <h2>
+  <div class="Jumbotron">
+    <form action=/vd/run/ method="post">
+      {% csrf_token %}
+      <input type="hidden" name="id" value="{{series.pk}}">
+      <input type="submit" value="Run">
+    </form>
+  </div>
+  <div class="container">
+    <form action=/vd/Delete/{{series.pk}} method="post">
+      {% csrf_token %}
+      <input type="submit" value="Delete">
+      <a href="{% url 'Detail' pk=series.pk %}">Cancel</a>
+    </form>
+  </div>
+  </h2>
+{% endblock %}

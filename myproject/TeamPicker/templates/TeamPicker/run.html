@@ -1,0 +1,67 @@
+{% extends 'TeamPicker/TeamPicker_base.html' %}
+{% block body_block %}
+<style>
+table, th, td {
+  border: 2px solid black;
+  border-collapse: collapse;
+}
+</style>
+<h1>
+  Dream Team
+</h1>
+<h2>
+  <h2>
+  Total Credit Used for Picking Dream Team: {{CREDIT_USED}} <br>
+  </h2>
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Role</th>
+    <th>Credit</th>
+    <th>Team</th>
+  </tr>
+{% for i in WK %}
+<tr>
+  <td>{{i.Name}}</td>
+  <td>{{i.Role}}</td>
+  <td>{{i.Credit}}</td>
+  <td>{{i.Team}}</td>
+</tr>
+{%endfor%}
+{% for i in BAT %}
+<tr>
+  <td>{{i.Name}}</td>
+  <td>{{i.Role}}</td>
+  <td>{{i.Credit}}</td>
+  <td>{{i.Team}}</td>
+</tr>
+{%endfor%}
+{% for i in ALL %}
+<tr>
+  <td>{{i.Name}}</td>
+  <td>{{i.Role}}</td>
+  <td>{{i.Credit}}</td>
+  <td>{{i.Team}}</td>
+</tr>
+{%endfor%}
+{% for i in BOWL %}
+<tr>
+  <td>{{i.Name}}</td>
+  <td>{{i.Role}}</td>
+  <td>{{i.Credit}}</td>
+  <td>{{i.Team}}</td>
+</tr>
+{%endfor%}
+</table>
+<h2>
+<div class="Jumbotron">
+  <form action=/vd/run/ method="post">
+    {% csrf_token %}
+    <input type="hidden" name="id" value="{{ id }}">
+    <input type="submit" value="RE-RUN">
+    <a href="{% url 'Detail' pk=id  %}">Cancel</a>
+  </form>
+</div>
+</h2>
+</h2>
+{% endblock %}

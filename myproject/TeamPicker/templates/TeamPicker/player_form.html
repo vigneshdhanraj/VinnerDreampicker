@@ -1,0 +1,21 @@
+{% extends 'TeamPicker/TeamPicker_base.html' %}
+{% block body_block %}
+
+<h1>
+  Please Enter the Details of the Player
+</h1>
+<h1>
+  {% if not form.instance.pk %}
+  Player Details
+  {% else %}
+  Update Player Details
+  {% endif %}
+
+</h1>
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <input type="submit" value="Submit">
+  <a href="{% url 'index' %}">Cancel</a>
+</form>
+{% endblock %}

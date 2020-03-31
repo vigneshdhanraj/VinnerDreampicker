@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+  {% block body_block %}
+      <h1>Please Enter the Players Name, Role and Credit</h1>
+      <div class = "container">
+          <form method="POST">
+            {% csrf_token %}
+            <label for="Team1">Team1:</label>
+            <input type="text" name="Team1" value="">
+            <label for="Team2">Team2:</label>
+            <input type="text" name="Team2" value="">
+            <br><br>
+            {% for i in num %}
+              {{ form.as_table }}
+              <br>
+              {% endfor %}
+          <br>
+          {% for i in num %}
+            {{ form.as_table }}
+            <br>
+            {% endfor %}
+        <br>
+          <input type="submit" value="SUBMIT">
+        </form>
+    </div>
+   {% endblock %}
