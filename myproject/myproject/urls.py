@@ -16,11 +16,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from TeamPicker import views
+from django.views.generic import RedirectView
 
 urlpatterns = [
     path('vd/', include('TeamPicker.urls')),
     path('admin/', admin.site.urls),
     path('', views.SeriesListView.as_view(), name='index'),
     path('<pk>/', views.SeriesDetailView.as_view(), name="Detail"),
+    path('favicon.ico', RedirectView.as_view(url='/static/favicon.png'))
 
 ]

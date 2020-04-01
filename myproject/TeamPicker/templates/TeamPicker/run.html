@@ -10,9 +10,9 @@ table, th, td {
   Dream Team
 </h1>
 <h2>
-  <h2>
+  <h3>
   Total Credit Used for Picking Dream Team: {{CREDIT_USED}} <br>
-  </h2>
+  </h3>
 <table>
   <tr>
     <th>Name</th>
@@ -53,6 +53,8 @@ table, th, td {
 </tr>
 {%endfor%}
 </table>
+<p><strong>Captain: {{ CAPTAIN }}</strong><p>
+<p><strong>Vice-Captain: {{ VICE_CAPTAIN }} </strong></p>
 <h2>
 <div class="Jumbotron">
   <form action=/vd/run/ method="post">
