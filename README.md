@@ -26,4 +26,4 @@ Once Server started Access the DreamPicker using
 http://127.0.0.1:8000/
 ```
 
-## The Project is Implementated Using Django Framework
+## Project is Implementated Using Django Framework
