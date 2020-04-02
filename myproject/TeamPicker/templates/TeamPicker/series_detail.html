@@ -1,11 +1,5 @@
 {% extends 'TeamPicker/TeamPicker_base.html' %}
 {% block body_block %}
-<style>
-table, th, td {
-  border: 1px solid black;
-  border-collapse: collapse;
-}
-</style>
 <h1>
   Detailed View of the Series and Players
 </h1>
@@ -13,12 +7,12 @@ table, th, td {
   <p>{{ series.Match }}</p>
     <h3>
     <table>
-      <tr>
+      <thread>
         <th>Name</th>
         <th>Role</th>
         <th>Credit</th>
         <th>Team</th>
-      </tr>
+      </thread>
     {% for player in series.series.all %}
       <tr>
         <td><a href="{% url 'TeamPicker:UpdatePlayer' pk=player.pk %}">{{player.Name}}</a></td>

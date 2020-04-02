@@ -1,11 +1,5 @@
 {% extends 'TeamPicker/TeamPicker_base.html' %}
 {% block body_block %}
-<style>
-table, th, td {
-  border: 2px solid black;
-  border-collapse: collapse;
-}
-</style>
 <h1>
   Dream Team
 </h1>
@@ -14,15 +8,15 @@ table, th, td {
   Total Credit Used for Picking Dream Team: {{CREDIT_USED}} <br>
   </h3>
 <table>
-  <tr>
+  <thread>
     <th>Name</th>
     <th>Role</th>
     <th>Credit</th>
     <th>Team</th>
-  </tr>
+  </thread>
 {% for i in WK %}
 <tr>
-  <td>{{i.Name}}</td>
+  <td><strong>{{i.Name}}</strong></td>
   <td>{{i.Role}}</td>
   <td>{{i.Credit}}</td>
   <td>{{i.Team}}</td>
@@ -30,7 +24,7 @@ table, th, td {
 {%endfor%}
 {% for i in BAT %}
 <tr>
-  <td>{{i.Name}}</td>
+  <td><strong>{{i.Name}}</strong></td>
   <td>{{i.Role}}</td>
   <td>{{i.Credit}}</td>
   <td>{{i.Team}}</td>
@@ -38,7 +32,7 @@ table, th, td {
 {%endfor%}
 {% for i in ALL %}
 <tr>
-  <td>{{i.Name}}</td>
+  <td><strong>{{i.Name}}</strong></td>
   <td>{{i.Role}}</td>
   <td>{{i.Credit}}</td>
   <td>{{i.Team}}</td>
@@ -46,7 +40,7 @@ table, th, td {
 {%endfor%}
 {% for i in BOWL %}
 <tr>
-  <td>{{i.Name}}</td>
+  <td><strong>{{i.Name}}</strong></td>
   <td>{{i.Role}}</td>
   <td>{{i.Credit}}</td>
   <td>{{i.Team}}</td>
