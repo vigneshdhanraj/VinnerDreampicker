@@ -1,13 +1,20 @@
 {% extends 'TeamPicker/TeamPicker_base.html' %}
 {% block body_block %}
-<h1>
-  Detailed View of the Series and Players
-</h1>
 <h2>
   <p>{{ series.Match }}</p>
+  <div class="Jumbotron">
+    <form action=/vd/run/ method="post">
+      {% csrf_token %}
+      <input  type="hidden" name="id" value="{{series.pk}}">
+      <small class="form-next text-muted">Click to Get Your </small>
+      <input class="btn btn-success" type="submit" value="Dream Team">
+    </form>
+  </div>
     <h3>
-    <table>
-      <thread>
+      <div class="container table-responsive">
+    <table class="center table table-bordered table-hover table-sm">
+      <caption>List of Players and their Credits</caption>
+      <thread class="thead-dark">
         <th>Name</th>
         <th>Role</th>
         <th>Credit</th>
@@ -22,21 +29,23 @@
       </tr>
     {% endfor %}
     </table>
+    </div>
     </h3>
   </h2>
   <h2>
-  <div class="Jumbotron">
-    <form action=/vd/run/ method="post">
-      {% csrf_token %}
-      <input type="hidden" name="id" value="{{series.pk}}">
-      <input type="submit" value="Run">
-    </form>
-  </div>
+    <div class="container">
+      <form action="" method="post">
+        {% csrf_token %}
+        <p></p>
+        <a class="btn btn-primary" role="button" href="{% url 'TeamPicker:CreatePlayer' %}"><strong>CreatePlayer</strong></a>
+      </form>
+    </div>
   <div class="container">
     <form action=/vd/Delete/{{series.pk}} method="post">
       {% csrf_token %}
-      <input type="submit" value="Delete">
-      <a href="{% url 'Detail' pk=series.pk %}">Cancel</a>
+      <p></p>
+      <input class="btn btn-danger" onclick="return ConfirmDelete();" type="submit" value="DeleteMatch">
+      <a class="btn btn-secondary" role="button" href="{% url 'index' %}">BACK</a>
     </form>
   </div>
   </h2>

@@ -2,11 +2,14 @@
 {% block body_block %}
 
 <h1>
-  Match Between Which Two Teams Please Type as (eg:AusvsIndia)
+  Match Between Which Two Teams
 </h1>
 <form method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <input type="submit" value="Submit">
+  <div class="form-group align-items-center">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <small class="form-text text-muted">Example: IndiaVSAustralia</small><br>
+    <input class="btn btn-primary" type="submit" value="Submit">
+  </div>
 </form>
 {% endblock %}

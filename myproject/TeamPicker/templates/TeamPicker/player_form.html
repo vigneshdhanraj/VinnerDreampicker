@@ -6,16 +6,29 @@
 </h1>
 <h1>
   {% if not form.instance.pk %}
-  Player Details
+  Player Details <br>
   {% else %}
-  Update Player Details
+  Update Player Details <br>
   {% endif %}
-
 </h1>
-<form method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <input type="submit" value="Submit">
-  <a href="{% url 'index' %}">Cancel</a>
+<p></p>
+<form  method="post">
+  <div class="form-group align-items-center ">
+    {% csrf_token %}
+    {{ form.as_p }}
+  </div>
+  <div class="form-group align-items-center">
+    <input class="btn btn-success" type="submit" value="Submit">
+    <a class="btn btn-secondary" role="button" href="{% url 'index' %}">Cancel</a>
+  </div>
 </form>
+{%if form.instance.pk %}
+<div class="container">
+  <form action=/vd/DeletePlayer/{{form.instance.pk}} method="post">
+    {% csrf_token %}
+    <p></p>
+    <input class="btn btn-danger" onclick="return ConfirmPlayerDelete();" type="submit" value="Delete">
+  </form>
+</div>
+{% endif %}
 {% endblock %}

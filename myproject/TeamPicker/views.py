@@ -33,6 +33,10 @@ class SeriesDeleteView(DeleteView):
     model = Series
     success_url = reverse_lazy("index")
 
+class PlayerDeleteView(DeleteView):
+    model = Player
+    success_url = reverse_lazy("index")
+
 class PlayerUpdateView(UpdateView):
     model = Player
     fields = ('Series', 'Name', 'Role', 'Credit', 'Team')

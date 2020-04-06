@@ -2,13 +2,16 @@
 {% block body_block %}
 
 <h1>
+  <p></p>
   List of Ongoing Series
 </h1>
 <h2>
-  <ol>
+  <div class="list-group">
     {% for i in series_list %}
-    <li><a href="{{ i.id }}">{{ i.Match }}</a></li>
+    <a style="background:rgb(241, 92,25)" href="{{ i.id }}" class="list-group-item list-group-item-action list-group-item-dark">
+    {{ i.Match }}
+    </a>
     {% endfor %}
-  </ol>
+  </div>
 </h2>
 {% endblock %}

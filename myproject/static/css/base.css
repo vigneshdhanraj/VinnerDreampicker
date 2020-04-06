@@ -1,0 +1,34 @@
+body {
+  background: rgb(249, 205, 5);
+  margin: 0;
+  font-family: Arial, sans-serif;
+  text-align: center;
+  padding-top: 60px;
+}
+
+@media (max-width: 979px) {
+  body {
+    padding-top: 0px;
+  }
+}
+
+table, th, td {
+  background: rgb(241, 92,25);
+}
+
+table.center{
+  margin-left: auto;
+  margin-right: auto;
+}
+
+a {
+    color: black;
+}
+
+a:active {
+    color: blue;
+}
+
+a:visited {
+  color: rgb(29, 65, 140);
+}

@@ -2,18 +2,19 @@
 {% load static %}
 <html>
   <head>
-      <h1>Vinner Dreampicker</h1>
       <title>Dreampicker</title>
       <link rel="shortcut icon" type="image/png" href="{% static 'favicon.png' %}"/>
       <link rel="stylesheet"  href="{% static 'css/base.css' %}"/>
   </head>
   <body>
     <nav class="topnav">
-    <!-- <nav class=navbar navbar-default navbar-static-top> -->
       <div class="container">
-          <a href="{% url 'TeamPicker:List' %}">Home</a>
+        <ul>
+          <a id="logo" href="/"><img src="/static/images/logo.png" alt=""></a>
+          <a href="{% url 'index' %}">Home</a>
           <a href="{% url 'TeamPicker:Create' %}">CreateMatch</a>
           <a href="{% url 'TeamPicker:CreatePlayer' %}">CreatePlayer</a>
+        </ul>
       </div>
     </nav>
 
