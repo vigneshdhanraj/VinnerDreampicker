@@ -1,7 +1,16 @@
 # VinnerDreampicker
 ## Dream Team Picker 
 
-Create Virtual Environment and Install packages needed
+## Create Virtual Environment and Install packages needed
+
+Step 1:
+```bash
+make install
+make run
+```
+
+Step 2:
+
 ```bash
 virtualenv myenv --python=python3
 source myenv/bin/activate
