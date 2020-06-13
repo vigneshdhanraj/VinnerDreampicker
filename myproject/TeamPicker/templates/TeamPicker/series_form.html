@@ -2,8 +2,17 @@
 {% block body_block %}
 
 <h1>
-  Match Between Which Two Teams
+  Match Between Which Two Teams<br>
+  <small>Note: Create Using any one option, If Choosing GetTeams Please create Team with the same name in Teams</small>
 </h1>
+<form action=/vd/downloadteams/ method="post">
+  <div class="form-group align-items-center">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <small class="form-text text-muted">Example: IndiaVSAustralia</small><br>
+    <input class="btn btn-primary" type="submit" value="GetTeams">
+  </div>
+</form><br>
 <form method="post">
   <div class="form-group align-items-center">
     {% csrf_token %}
@@ -12,4 +21,5 @@
     <input class="btn btn-primary" type="submit" value="Submit">
   </div>
 </form>
+
 {% endblock %}

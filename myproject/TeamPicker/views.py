@@ -5,7 +5,7 @@ from django.urls import reverse_lazy, reverse
 from django.views.generic import (CreateView, UpdateView, ListView, DetailView,
                                 DeleteView)
 from TeamPicker.forms import Player_List
-from TeamPicker.models import Series, Player
+from TeamPicker.models import Series, Player, Team, TeamPlayer
 import json
 import glob
 import os
@@ -17,6 +17,33 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 class SeriesCreateView(CreateView):
     model = Series
     fields = ('Match',)
+
+class TeamCreateView(CreateView):
+    model = Team
+    fields = ('Team',)
+
+class TeamListView(ListView):
+    model = Team
+
+class TeamDetailView(DetailView):
+    model = Team
+    template_name = 'TeamPicker/team_detail.html'
+
+class TeamDeleteView(DeleteView):
+    model = Team
+    success_url = reverse_lazy("index")
+
+class TeamPlayerCreateView(CreateView):
+    model = TeamPlayer
+    fields = ('Team', 'Name', 'Role', 'Credit')
+
+class TeamPlayerUpdateView(UpdateView):
+    model = TeamPlayer
+    fields = ('Team', 'Name', 'Role', 'Credit')
+
+class TeamPlayerDeleteView(DeleteView):
+    model = TeamPlayer
+    success_url = reverse_lazy("TeamPicker:Team")
 
 class PlayerCreateView(CreateView):
     model = Player
@@ -118,6 +145,36 @@ def selecting_cap(team):
     captain = cap[0]['Name']
     vice_captain = cap[1]['Name']
     return {"CAPTAIN":captain, "VICE_CAPTAIN":vice_captain}
+
+def getTeamDict(teamname):
+    teams = list(Team.objects.filter(Team = teamname).values())
+    team_dict = teams[0]
+    return team_dict
+
+def getMatchDict(matchname):
+    match = list(Series.objects.filter(Match = matchname).values())
+    match_dict = match[0]
+    return match_dict
+
+def downloadteams(request):
+    match = request.POST.getlist('Match')[0]
+    match_ins = Series.objects.create(Match = match)
+    match_id = getMatchDict(match)
+    match_teams = match.split('VS')
+    team1 = match_teams[0]
+    team2 = match_teams[1]
+    team1_id = getTeamDict(team1)['id']
+    team2_id = getTeamDict(team2)['id']
+    Team1_Players = list(TeamPlayer.objects.filter(Team = team1_id).values())
+    Team2_Players = list(TeamPlayer.objects.filter(Team = team2_id).values())
+    if Team1_Players:
+        for Team in Team1_Players:
+            Player.objects.create(Series = match_ins, Name = Team['Name'], Role = Team['Role'], Credit = Team['Credit'], Team = "Team1")
+    if Team2_Players:
+        for Team in Team2_Players:
+            Player.objects.create(Series = match_ins, Name = Team['Name'], Role = Team['Role'], Credit = Team['Credit'], Team = "Team2")
+    return HttpResponseRedirect("/")
+
 
 def run(request):
     Match = request.POST.getlist('id')[0]

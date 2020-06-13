@@ -1,11 +1,11 @@
 {% extends 'TeamPicker/TeamPicker_base.html' %}
 {% block body_block %}
-<h2>
+<h4>
   <h4>
   Total Credit Used for Picking Dream Team: {{CREDIT_USED}} <br>
   </h4>
-  <p><strong>Captain: {{ CAPTAIN }}</strong><br>
-  <strong>Vice-Captain: {{ VICE_CAPTAIN }} </strong></p>
+  <p><strong>Captain: ({{ CAPTAIN }})</strong>
+  <strong>Vice-Captain: ({{ VICE_CAPTAIN }})</strong></p>
 <div class="container table-responsive">
 <table class="center table table-hover table-bordered table-sm">
   <!-- <caption>Dream Team Selected By VinDream</caption> -->
@@ -23,6 +23,15 @@
   <td>{{i.Team}}</td>
 </tr>
 {%endfor%}
+</table><br>
+<table class="center table table-hover table-bordered table-sm">
+  <!-- <caption>Dream Team Selected By VinDream</caption> -->
+  <!-- <thread class="thead-dark">
+    <th>Name</th>
+    <th>Role</th>
+    <th>Credit</th>
+    <th>Team</th>
+  </thread> -->
 {% for i in BAT %}
 <tr>
   <td><strong>{{i.Name}}</strong></td>
@@ -31,6 +40,15 @@
   <td>{{i.Team}}</td>
 </tr>
 {%endfor%}
+</table><br>
+<table class="center table table-hover table-bordered table-sm">
+  <!-- <caption>Dream Team Selected By VinDream</caption> -->
+  <!-- <thread class="thead-dark">
+    <th>Name</th>
+    <th>Role</th>
+    <th>Credit</th>
+    <th>Team</th>
+  </thread> -->
 {% for i in ALL %}
 <tr>
   <td><strong>{{i.Name}}</strong></td>
@@ -39,6 +57,15 @@
   <td>{{i.Team}}</td>
 </tr>
 {%endfor%}
+</table><br>
+<table class="center table table-hover table-bordered table-sm">
+  <!-- <caption>Dream Team Selected By VinDream</caption> -->
+  <!-- <thread class="thead-dark">
+    <th>Name</th>
+    <th>Role</th>
+    <th>Credit</th>
+    <th>Team</th>
+  </thread> -->
 {% for i in BOWL %}
 <tr>
   <td><strong>{{i.Name}}</strong></td>
@@ -59,5 +86,5 @@
   </form>
 </div>
 </h2>
-</h2>
+</h4>
 {% endblock %}

@@ -3,13 +3,13 @@
 
 <h1>
   <p></p>
-  List of Matches
+  List of Teams
 </h1>
 <h2>
   <div class="list-group">
-    {% for i in series_list %}
+    {% for i in team_list %}
     <a style="background:rgb(241, 92,25)" href="{{ i.id }}" class="list-group-item list-group-item-action list-group-item-dark">
-    {{ i.Match }}
+    {{ i.Team }}
     </a>
     {% endfor %}
   </div>

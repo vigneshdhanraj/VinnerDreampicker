@@ -1,0 +1,52 @@
+{% extends 'TeamPicker/TeamPicker_base.html' %}
+{% block body_block %}
+<h2>
+  <p>{{ teams.Team }}</p>
+  <!-- <div class="Jumbotron">
+    <form action=/vd/run/ method="post">
+      {% csrf_token %}
+      <input  type="hidden" name="id" value="{{series.pk}}">
+      <small class="form-next text-muted">Click to Get Your </small>
+      <input class="btn btn-success" type="submit" value="Dream Team">
+    </form>
+  </div> -->
+    <h3>
+      <div class="container table-responsive">
+    <table class="center table table-bordered table-hover table-sm">
+      <caption>List of Players and their Credits</caption>
+      <thread class="thead-dark">
+        <th>Name</th>
+        <th>Role</th>
+        <th>Credit</th>
+        <th>Team</th>
+      </thread>
+    {% for player in team.team.all %}
+      <tr>
+        <td><a href="{% url 'TeamPicker:UpdateTeamPlayer' pk=player.pk %}">{{player.Name}}</a></td>
+        <td>{{player.Role}}</td>
+        <td>{{player.Credit}}</td>
+        <td>{{player.Team}}</td>
+      </tr>
+    {% endfor %}
+    </table>
+    </div>
+    </h3>
+  </h2>
+  <h2>
+    <div class="container">
+      <form action="" method="post">
+        {% csrf_token %}
+        <p></p>
+        <a class="btn btn-primary" role="button" href="{% url 'TeamPicker:CreateTeamPlayer' %}"><strong>CreatePlayerTeam</strong></a>
+      </form>
+    </div>
+  <div class="container">
+    <form action=/vd/DeleteTeam/{{team.pk}} method="post">
+      {% csrf_token %}
+      <p></p>
+      <input class="btn btn-danger" onclick="return ConfirmTeamDelete();" type="submit" value="DeleteTeam">
+      <a class="btn btn-secondary" role="button" href="{% url 'TeamPicker:Team' %}">BACK</a>
+    </form>
+  </div>
+  </h2>
+{% endblock %}

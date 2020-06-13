@@ -1,0 +1,15 @@
+{% extends 'TeamPicker/TeamPicker_base.html' %}
+{% block body_block %}
+
+<h1>
+  Create a Team
+</h1>
+<form method="post">
+  <div class="form-group align-items-center">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <small class="form-text text-muted">Example: India</small><br>
+    <input class="btn btn-primary" type="submit" value="Submit">
+  </div>
+</form>
+{% endblock %}
