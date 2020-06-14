@@ -117,27 +117,28 @@ def pickrandom(Teamlist):
                                     (team1 >= 4) and (
                                         team1 <= 7)) and (
                                             total_credit <= 100.0):
-        print("================================================================")
-        print ("\nTotal Credit Used: " + str(total_credit) + "\n")
-        print (
-            "Bat: " +
-            str(bat) +
-            " Bowl: " +
-            str(bowl) +
-            " ALL: " +
-            str(allrounder) +
-            " WK: " +
-            str(wk) +
-            " Team1: " +
-            str(team1) +
-            " Team2: " +
-            str(team2))
+        # print("================================================================")
+        # print ("\nTotal Credit Used: " + str(total_credit) + "\n")
+        # print (
+        #     "Bat: " +
+        #     str(bat) +
+        #     " Bowl: " +
+        #     str(bowl) +
+        #     " ALL: " +
+        #     str(allrounder) +
+        #     " WK: " +
+        #     str(wk) +
+        #     " Team1: " +
+        #     str(team1) +
+        #     " Team2: " +
+        #     str(team2))
+        pass
 
     else:
         total_credit = 0
         sample = pickrandom(Teamlist)
 
-    print(sample)
+    # print(sample)
     return sample
 
 def selecting_cap(team):
