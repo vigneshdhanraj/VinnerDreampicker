@@ -1,5 +1,6 @@
 {% extends 'TeamPicker/TeamPicker_base.html' %}
 {% block body_block %}
+
 <h4>
   <h4>
   Total Credit Used for Picking Dream Team: {{CREDIT_USED}} <br>
@@ -77,6 +78,7 @@
 </table><br>
 </div>
 <h2>
+
 <div class="Jumbotron">
   <form action=/vd/run/ method="post">
     {% csrf_token %}

@@ -16,7 +16,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 class SeriesCreateView(CreateView):
     model = Series
-    fields = ('Match',)
+    fields = ('Match','WinningChance')
 
 class TeamCreateView(CreateView):
     model = Team
@@ -59,6 +59,7 @@ class SeriesDetailView(DetailView):
 class SeriesDeleteView(DeleteView):
     model = Series
     success_url = reverse_lazy("index")
+
 
 class PlayerDeleteView(DeleteView):
     model = Player
@@ -177,15 +178,7 @@ def downloadteams(request):
     return HttpResponseRedirect("/")
 
 
-def run(request):
-    Match = request.POST.getlist('id')[0]
-    Team1_Players = list(Player.objects.filter(Series = Match).filter(Team="Team1").values())
-    Team2_Players = list(Player.objects.filter(Series = Match).filter(Team="Team2").values())
-    team_dict = {
-        'Team1': Team1_Players,
-        'Team2': Team2_Players
-    }
-    teams = {"Team":[team_dict]}
+def run_team(teams, match):
     team = pickrandom(teams)
     sorted_team = sorted(team, key=lambda i: i['Role'])
     total_credit = sum([float(s['Credit']) for s in sorted_team])
@@ -197,5 +190,53 @@ def run(request):
     data_dict = {"WK":wk, "BAT":bat, "BOWL":bowl, "ALL":allround,
                 "CAPTAIN":cap_vc['CAPTAIN'],
                 "VICE_CAPTAIN":cap_vc['VICE_CAPTAIN'],
-                "id": Match, "CREDIT_USED":total_credit}
+                "id": match, "CREDIT_USED":total_credit}
+    return data_dict
+
+def writejson(filename, data):
+    with open(filename, "w") as f:
+        json.dump(data, f, indent=2)
+    return 0
+
+
+def readjson(filename):
+    with open(filename, "r") as f:
+        data = json.load(f)
+    return data
+
+def reset(request):
+    jsonpath =  BASE_DIR + "/series_json/*"
+    files = glob.glob(jsonpath)
+    for f in files:
+        os.remove(f)
+    return HttpResponseRedirect("/")
+
+def run(request):
+    data_list = []
+    Match = request.POST.getlist('id')[0]
+    series_id = list(Player.objects.filter(Series = Match).values())[0]['Series_id']
+    jsonpath =  BASE_DIR + "/series_json/" + str(series_id) + ".json"
+    if os.path.exists(jsonpath):
+        data = readjson(jsonpath)
+        if len(data) == 0:
+            os.remove(jsonpath)
+        else:
+            for d in data:
+                ren = render(request, "TeamPicker/run.html", d)
+                data.remove(d)
+                writejson(jsonpath, data)
+                return ren
+    WinningChance = list(Series.objects.filter(id = series_id).values())[0]['WinningChance']
+    Team1_Players = list(Player.objects.filter(Series = Match).filter(Team="Team1").values())
+    Team2_Players = list(Player.objects.filter(Series = Match).filter(Team="Team2").values())
+    team_dict = {
+        'Team1': Team1_Players,
+        'Team2': Team2_Players
+    }
+    teams = {"Team":[team_dict]}
+    data_dict = run_team(teams, Match)
+    for i in range(10):
+        data = run_team(teams, Match)
+        data_list.append(data)
+    writejson(jsonpath, data_list)
     return render(request, "TeamPicker/run.html", data_dict)

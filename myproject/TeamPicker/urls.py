@@ -17,4 +17,5 @@ urlpatterns = [
     path('DeleteTeamPlayer/<pk>', views.TeamPlayerDeleteView.as_view(), name="DeleteTeamPlayer"),
     path('UpdatePlayer/<pk>', views.PlayerUpdateView.as_view(), name="UpdatePlayer"),
     path('UpdateTeamPlayer/<pk>', views.TeamPlayerUpdateView.as_view(), name="UpdateTeamPlayer"),
+    path('reset/', views.reset, name="Reset"),
 ]

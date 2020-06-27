@@ -6,6 +6,11 @@ from django.urls import reverse, reverse_lazy
 
 class Series(models.Model):
     Match = models.CharField(max_length=264, unique=True)
+    WinningChance = models.CharField(max_length=264, choices=[
+                                            ('Team1', 'Team1'),
+                                            ('Team2', 'Team2')
+                                            ],
+                                            default="Team1")
 
     def __str__(self):
         return self.Match
