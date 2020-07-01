@@ -26,7 +26,7 @@ SECRET_KEY = '85(d=86y-q)4@gl)zj+0q@f!_#dz^i95&$5tp-2ya06+mt6qx#'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['vinnerdreampicker.el.r.appspot.com']
 
 
 # Application definition
