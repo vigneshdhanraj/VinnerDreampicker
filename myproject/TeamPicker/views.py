@@ -181,6 +181,10 @@ def downloadteams(request):
 def run_team(teams, match):
     team = pickrandom(teams)
     sorted_team = sorted(team, key=lambda i: i['Role'])
+    count = 0
+    for s in sorted_team:
+        if s['Team'] == "Team1":
+            count = count + 1
     total_credit = sum([float(s['Credit']) for s in sorted_team])
     wk = [s for s in sorted_team if s['Role'] == "WK"]
     bat = [s for s in sorted_team if s['Role'] == "BAT"]
@@ -191,7 +195,7 @@ def run_team(teams, match):
                 "CAPTAIN":cap_vc['CAPTAIN'],
                 "VICE_CAPTAIN":cap_vc['VICE_CAPTAIN'],
                 "id": match, "CREDIT_USED":total_credit}
-    return data_dict
+    return data_dict, count
 
 def writejson(filename, data):
     with open(filename, "w") as f:
@@ -211,22 +215,60 @@ def reset(request):
         os.remove(f)
     return HttpResponseRedirect("/")
 
+def create_data_dict(teams, Match, Team_support):
+    data_dict, count = run_team(teams, Match)
+    if Team_support:
+        if Team_support[0] == "Team1":
+            while(count != 7):
+                data_dict, count = run_team(teams, Match)
+        else:
+            while(count != 4 ):
+                data_dict, count = run_team(teams, Match)
+    return data_dict
+
+def assign_teams(data_dict, team1, team2):
+    for i in data_dict['WK']:
+        if i['Team'] == "Team1":
+            i['Team'] = team1
+        else:
+            i['Team'] = team2
+    for i in data_dict['BOWL']:
+        if i['Team'] == "Team1":
+            i['Team'] = team1
+        else:
+            i['Team'] = team2
+    for i in data_dict['BAT']:
+        if i['Team'] == "Team1":
+            i['Team'] = team1
+        else:
+            i['Team'] = team2
+    for i in data_dict['ALL']:
+        if i['Team'] == "Team1":
+            i['Team'] = team1
+        else:
+            i['Team'] = team2
+    return data_dict
+
 def run(request):
     data_list = []
     Match = request.POST.getlist('id')[0]
-    series_id = list(Player.objects.filter(Series = Match).values())[0]['Series_id']
-    jsonpath =  BASE_DIR + "/series_json/" + str(series_id) + ".json"
-    if os.path.exists(jsonpath):
-        data = readjson(jsonpath)
-        if len(data) == 0:
-            os.remove(jsonpath)
-        else:
-            for d in data:
-                ren = render(request, "TeamPicker/run.html", d)
-                data.remove(d)
-                writejson(jsonpath, data)
-                return ren
-    WinningChance = list(Series.objects.filter(id = series_id).values())[0]['WinningChance']
+    Team_support = request.POST.getlist('team')
+    match_detail = list(Series.objects.filter(id = Match).values())
+    team1 = match_detail[0]['Match'].split("VS")[0]
+    team2 = match_detail[0]['Match'].split("VS")[1]
+    # series_id = list(Player.objects.filter(Series = Match).values())[0]['Series_id']
+    # jsonpath =  BASE_DIR + "/series_json/" + str(series_id) + ".json"
+    # if os.path.exists(jsonpath):
+    #     data = readjson(jsonpath)
+    #     if len(data) == 0:
+    #         os.remove(jsonpath)
+    #     else:
+    #         for d in data:
+    #             ren = render(request, "TeamPicker/run.html", d)
+    #             data.remove(d)
+    #             writejson(jsonpath, data)
+    #             return ren
+    # WinningChance = list(Series.objects.filter(id = series_id).values())[0]['WinningChance']
     Team1_Players = list(Player.objects.filter(Series = Match).filter(Team="Team1").values())
     Team2_Players = list(Player.objects.filter(Series = Match).filter(Team="Team2").values())
     team_dict = {
@@ -234,9 +276,11 @@ def run(request):
         'Team2': Team2_Players
     }
     teams = {"Team":[team_dict]}
-    data_dict = run_team(teams, Match)
-    for i in range(10):
-        data = run_team(teams, Match)
-        data_list.append(data)
-    writejson(jsonpath, data_list)
+    data_dict = create_data_dict(teams, Match, Team_support)
+    data_dict = assign_teams(data_dict, team1, team2)
+
+    # for i in range(10):
+    #     data = run_team(teams, Match)
+    #     data_list.append(data)
+    # writejson(jsonpath, data_list)
     return render(request, "TeamPicker/run.html", data_dict)

@@ -83,8 +83,20 @@
   <form action=/vd/run/ method="post">
     {% csrf_token %}
     <input type="hidden" name="id" value="{{ id }}">
+    <input type="hidden" name="team" value="Team1">
+    <input class="btn btn-success" type="submit" value="Team1 Dream Team">
+  </form>
+  <form action=/vd/run/ method="post">
+    {% csrf_token %}
+    <input type="hidden" name="id" value="{{ id }}">
     <input class="btn btn-success" type="submit" value="Next Dream Team">
     <a class="btn btn-secondary" role="button" href="{% url 'Detail' pk=id  %}">Cancel</a>
+  </form>
+  <form action=/vd/run/ method="post">
+    {% csrf_token %}
+    <input type="hidden" name="id" value="{{ id }}">
+    <input type="hidden" name="team" value="Team2">
+    <input class="btn btn-success" type="submit" value="Team2 Dream Team">
   </form>
 </div>
 </h2>
